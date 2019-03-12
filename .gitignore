@@ -30,3 +30,13 @@
 *.exe
 *.out
 *.app
+
+*.sln
+*.vcxproj
+*.vcxproj*
+*.sln*
+
+.vs
+
+[Bb]in
+[Bb]in-int

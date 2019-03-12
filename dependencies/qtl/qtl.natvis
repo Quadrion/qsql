@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+  <Type Name="qtl::complex&lt;*&gt;">
+    <Expand>
+      <Item Name="[real]">__re</Item>
+      <Item Name="[imag]">__im</Item>
+    </Expand>
+  </Type>
+  <Type Name="qtl::deque&lt;*&gt;">
+    <Expand>
+      <Item Name="[size]">__size</Item>
+      <Item Name="[head]">__head</Item>
+      <Item Name="[tail]">__tail</Item>
+      <LinkedListItems>
+        <Size>__size</Size>
+        <HeadPointer>__head->next</HeadPointer>
+        <NextPointer>next</NextPointer>
+        <ValueNode>*value</ValueNode>
+      </LinkedListItems>
+    </Expand>
+  </Type>
+  <Type Name="qtl::list&lt;*&gt;">
+    <Expand>
+      <Item Name="[size]">__size</Item>
+      <Item Name="[head]">__head</Item>
+      <Item Name="[tail]">__tail</Item>
+      <LinkedListItems>
+        <Size>__size</Size>
+        <HeadPointer>__head->next</HeadPointer>
+        <NextPointer>next</NextPointer>
+        <ValueNode>*value</ValueNode>
+      </LinkedListItems>
+    </Expand>
+  </Type>
+  <Type Name="qtl::queue&lt;*&gt;">
+    <Expand>
+      <Item Name="[size]">__size</Item>
+      <Item Name="[head]">__head</Item>
+      <Item Name="[tail]">__tail</Item>
+      <LinkedListItems>
+        <Size>__size</Size>
+        <HeadPointer>__head->next</HeadPointer>
+        <NextPointer>next</NextPointer>
+        <ValueNode>*value</ValueNode>
+      </LinkedListItems>
+    </Expand>
+  </Type>
+  <Type Name="qtl::redblack_tree&lt;*&gt;">
+    <Expand>
+      <Item Name="[size]">__size</Item>
+      <CustomListItems>
+        <Variable Name="it" InitialValue="__root" />
+        <Size>__size</Size>
+        <Exec>it == __root</Exec>
+        <Loop>
+          <Break Condition="it->left == nullptr" />
+          <Exec>it = it->left</Exec>
+        </Loop>
+        <Loop>
+          <Item>*(it->value)</Item>
+          <Break Condition="it == nullptr"/>
+          <If Condition="it->right == nullptr">
+            <Loop>
+              <Break Condition="it->parent == nullptr" />
+              <Break Condition="it->parent->right != it" />
+              <Exec>it = it->parent</Exec>
+            </Loop>
+            <Exec>it = it->parent</Exec>
+          </If>
+          <Else>
+            <Exec>it = it->right</Exec>
+            <Loop>
+              <Break Condition="it->left == nullptr" />
+              <Exec>it = it->left</Exec>
+            </Loop>
+          </Else>
+        </Loop>
+      </CustomListItems>
+    </Expand>
+  </Type>
+  <Type Name="qtl::stack&lt;*&gt;">
+    <Expand>
+      <Item Name="[size]">__size</Item>
+      <Item Name="[head]">__head</Item>
+      <Item Name="[tail]">__tail</Item>
+      <LinkedListItems>
+        <Size>__size</Size>
+        <HeadPointer>__head->next</HeadPointer>
+        <NextPointer>next</NextPointer>
+        <ValueNode>*value</ValueNode>
+      </LinkedListItems>
+    </Expand>
+  </Type>
+  <Type Name="qtl::tree_map&lt;*&gt;">
+    <Expand>
+      <Item Name="[size]">__tree.__size</Item>
+      <CustomListItems>
+        <Variable Name="it" InitialValue="__tree.__root" />
+        <Size>__tree.__size</Size>
+        <Exec>it == __tree.__root</Exec>
+        <Loop>
+          <Break Condition="it->left == nullptr" />
+          <Exec>it = it->left</Exec>
+        </Loop>
+        <Loop>
+          <Item Name="[{(it->value->kv).first}]">(it->value->kv).second</Item>
+          <Break Condition="it == nullptr"/>
+          <If Condition="it->right == nullptr">
+            <Loop>
+              <Break Condition="it->parent == nullptr" />
+              <Break Condition="it->parent->right != it" />
+              <Exec>it = it->parent</Exec>
+            </Loop>
+            <Exec>it = it->parent</Exec>
+          </If>
+          <Else>
+            <Exec>it = it->right</Exec>
+            <Loop>
+              <Break Condition="it->left == nullptr" />
+              <Exec>it = it->left</Exec>
+            </Loop>
+          </Else>
+        </Loop>
+      </CustomListItems>
+    </Expand>
+  </Type>
+  <Type Name="qtl::unordered_map&lt;*&gt;">
+    <Expand>
+      <Item Name="[size]">__usage</Item>
+      <Item Name="[capacity]">__capacity</Item>
+      <CustomListItems>
+        <Variable Name="iBucket" InitialValue="0" />
+        <Size>__usage</Size>
+        <Exec>iBucket = 0</Exec>
+        <Loop>
+          <If Condition="__data[iBucket].is_occupied">
+            <Item Name="[{__data[iBucket].kv.first}]">
+              __data[iBucket].kv.second
+            </Item>
+          </If>
+          <Exec>iBucket++</Exec>
+          <Break Condition="iBucket == __capacity"/>
+        </Loop>
+      </CustomListItems>
+    </Expand>
+  </Type>
+  <Type Name="qtl::unordered_set&lt;*&gt;">
+    <Expand>
+      <Item Name="[size]">__map.__usage</Item>
+      <Item Name="[capacity]">__map.__capacity</Item>
+      <CustomListItems>
+        <Variable Name="iBucket" InitialValue="0" />
+        <Size>__map.__usage</Size>
+        <Exec>iBucket = 0</Exec>
+        <Loop>
+          <If Condition="__map.__data[iBucket].is_occupied">
+            <Item>
+              __map.__data[iBucket].kv.second
+            </Item>
+          </If>
+          <Exec>iBucket++</Exec>
+          <Break Condition="iBucket == __map.__capacity"/>
+        </Loop>
+      </CustomListItems>
+    </Expand>
+  </Type>
+  <Type Name="qtl::vector&lt;*&gt;">
+    <Expand>
+      <Item Name="[size]">__size</Item>
+      <Item Name="[capacity]">__capacity</Item>
+      <ArrayItems>
+        <Size>__size</Size>
+        <ValuePointer>__data</ValuePointer>
+      </ArrayItems>
+    </Expand>
+  </Type>
+</AutoVisualizer>
