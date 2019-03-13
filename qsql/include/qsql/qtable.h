@@ -33,7 +33,7 @@ namespace qsql
 
 	class QRow
 	{
-		QRow(const qtl::vector<QField>& fields, void* __data);
+		QRow(const qtl::vector<QField>& fields, void* data);
 	public:
 		QField get(const size_t column) const;
 	private:
